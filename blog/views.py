@@ -16,6 +16,7 @@ class PostLV(ListView):
 class PostDV(DetailView):
     model = Post
 
+
 class PostAV(ArchiveIndexView):
     model = Post
     date_field = 'modify_dt'
@@ -36,9 +37,11 @@ class PostMAV(MonthArchiveView):
 
 class PostDAV(DayArchiveView):
     model = Post
+    month_format = '%m'
     date_field = 'modify_dt'
 
 
 class PostTAV(TodayArchiveView):
     model = Post
     date_field = 'modify_dt'
+    template_name = 'blog/post_archive_day.html'
