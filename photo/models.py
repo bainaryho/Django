@@ -6,6 +6,7 @@ from photo.fields import ThumbnailImageField
 
 
 # Create your models here.
+# ORM part want a class dev
 class Album(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField('One Line Description', max_length=100, blank=True)
