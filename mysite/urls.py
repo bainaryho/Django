@@ -30,7 +30,7 @@ urlpatterns = [
     path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'),
 
     path('', HomeView.as_view(), name='home'),
-    path('blog/', include('blog.urls')),
+    path('blog/', include('blog.urls')), #view는 url이 필수
     path('photo/', include('photo.urls')),
 
     path('bookmark/', BookmarkLV.as_view(), name='index'),
