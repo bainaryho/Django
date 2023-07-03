@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
-
+# 슬러그 import
+from django.utils.text import slugify
 
 # Create your models here.
 class Post(models.Model):
@@ -12,6 +14,8 @@ class Post(models.Model):
     created_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt = models.DateTimeField('MODIFY DATE', auto_now=True)
     tags = TaggableManager(blank=True)
+    #owner는 blog, bookmark, photo models에 추가
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = 'post'
@@ -30,3 +34,9 @@ class Post(models.Model):
 
     def get_next(self):
         return self.get_next_by_modify_dt()
+
+    #이건 추가 안해도되는데 실습이라추가. 슬러그에 대한 공부 진행해야겠다,,
+    def save(self, *args, **kwargs):
+        #제목이 바뀌었을때 슬러그가 바뀐다는게 맞다고 본다? 라고하심
+        self.slug = slugify(self.title, allow_unicode=True)
+        super().save(*args, **kwargs)
