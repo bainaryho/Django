@@ -19,6 +19,13 @@ class UserCreateDoneTV(TemplateView):
 
 
 #Mixin은 장고 인증 안에 클래스인데 여기저기 사용하는 메소드의 집함.
-#접근권한에 대한 다양한 메소드를 지원. 자주 사용됨.
-class OwnerOnlyMixin(AccessMixin):#가지고 있는 사람만 접근가능하게 만들어주겠다는 뜻.
-    pass
+#접근권한에 대한 다양한 메소드를 지원. 자주 사용됨.근
+class OwnerOnlyMixin(AccessMixin):#가지고 있는 사람만 접가능하게 만들어주겠다는 뜻.
+    raise_exception = True
+    permission_denied_message = '소유자만 수정/삭제가 가능합니다.'
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if request.user != obj.owner:
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
