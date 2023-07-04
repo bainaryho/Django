@@ -36,6 +36,6 @@ urlpatterns = [
     #bookmark urls로 이동
     #path('bookmark/', BookmarkLV.as_view(), name='index'),
     #path('bookmark/<int:pk>/', BookmarkDV.as_view(), name='detail'),
-    #bookmark urls include
+    #bookmark urls include. include로 변경해서 쓰자!
     path('bookmark/', include('bookmark.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
