@@ -1,12 +1,13 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, ArchiveIndexView, YearArchiveView, MonthArchiveView, \
     DayArchiveView, TodayArchiveView, TemplateView, FormView, CreateView, UpdateView, DeleteView
-from django.db.models import Q
-from django.shortcuts import render
-from blog.models import Post
+
 from blog.forms import PostSearchForm
+from blog.models import Post
 from mysite.views import OwnerOnlyMixin
 
 
@@ -50,8 +51,8 @@ class PostMAV(MonthArchiveView):
 
 class PostDAV(DayArchiveView):
     model = Post
-    month_format = '%m'
     date_field = 'modify_dt'
+    month_format = '%m'
 
 
 class PostTAV(TodayArchiveView):
@@ -92,6 +93,7 @@ class SearchFormView(FormView):
         context['object_list'] = post_list
 
         return render(self.request, self.template_name, context)
+
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
