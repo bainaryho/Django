@@ -38,3 +38,4 @@ class BookmarkUpdateView(OwnerOnlyMixin, UpdateView):
 class BookmarkDeleteView(OwnerOnlyMixin, DeleteView):
     model = Bookmark
     success_url = reverse_lazy('bookmark:index')
+
